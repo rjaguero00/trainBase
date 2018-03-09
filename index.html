@@ -1,118 +1,85 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Train Schedule</title>
 
-		<link rel="stylesheet" href="assets/css/train.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/train.css">
 
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-		<title>Train Schedule</title>
-		
-	</head>
-	<body>
-		<div class="jumbotron jumbotron-fluid">
-  			<div class="container">
-    			<h1 class="display-4">Train Schedule</h1>
-    			<p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-  			</div>
-		</div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 
-		<div class="card">
-  			<div class="card-header">
-   	 			Train Schedule
-  			</div>
-  			<div class="card-body">
-  				<table class="table">
-				  <thead class="thead-dark">
-				    <tr>
-				      <th scope="col">Train Name</th>
-				      <th scope="col">Destination</th>
-				      <th scope="col">Frequency (min)</th>
-				      <th scope="col">Next Arrival</th>
-				      <th scope="col">Minutes Away</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>@mdo</td>
-				      <td>@mdo</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				      <td>@fat</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Larry</td>
-				      <td>the Bird</td>
-				      <td>@twitter</td>
-				      <td>@twitter</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">4</th>
-				      <td>Larry</td>
-				      <td>the Bird</td>
-				      <td>@twitter</td>
-				      <td>@twitter</td>
-				    </tr>
-				   	<tr>
-				      <th scope="row">5</th>
-				      <td>Larry</td>
-				      <td>the Bird</td>
-				      <td>@twitter</td>
-				      <td>@twitter</td>
-				    </tr>
-				  </tbody>
-				</table>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  </head>
+  <body>
 
-  			</div>
-		</div>
+    <div class="container">
+      
+      <div class="jumbotron" style="background-color: #003366; color: white;">
+        <h1 class="text-center">Train Schedule</h1>
+        <h3 class="text-center">All Aboard!</h3>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+        
+          <div class="panel panel-primary" style="border: 1px solid #003366;">
+            <div class="panel-heading" style="background-color: #339966;">
+              <h3 class="panel-title"><strong>Current Train Schedule</strong></h3>
+            </div>
+            <div class="panel-body">
+              <table class="table table-hover" id='train-table'>
+                <thead>
+                  <tr>
+                    <th>Train Name</th>
+                    <th>Destination</th>
+                    <th>Frequency (min)</th>
+                    <th>Next Arrival</th>
+                    <th>Minutes Away</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div class="panel panel-primary" style="border: 1px solid #003366;">
+            <div class="panel-heading" style="background-color: #339966;">
+              <h3 class="panel-title"><strong>Add Train</strong></h3>
+            </div>
+            <div class="panel-body">
+              
+              <form>
+                <div class="form-group">
+                  <label for="train-name-input">Train Name</label>
+                  <input class="form-control" id="train-name-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="destination-input">Destination</label>
+                  <input class="form-control" id="destination-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="first-train-input">First Train Time (HH:mm - military time)</label>
+                  <input class="form-control" id="first-train-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="frequency-input">Frequency</label>
+                  <input class="form-control" id="frequency-input" type="text">
+                </div>
+                <button class="btn btn-primary" id="add-train-btn" type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-
-		<div class="card">
-  			<div class="card-header">
-   	 			Add Train
-  			</div>
-  			<div class="card-body">
-  				<form>
-				  <div class="form-group">
-				    <label for="exampleInputTrain">Train Name</label>
-				    <input type="Train" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-				  </div>
-				  <div class="form-group">
-				    <label for="exampleInputEmail1">Destination</label>
-				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-				  </div>
-				  <div class="form-group">
-				    <label for="exampleInputEmail1">First Train Time</label>
-				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-				  </div>
-				  <div class="form-group">
-				    <label for="exampleInputEmail1">Frequency</label>
-				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-				  </div>
-
-				  <button class="btn btn-primary" type="submit">Submit</button>
-
-				</form>
-
-  			</div>
-		</div>
-
-
-		
-		<script src="assets/javascript/tB.js"></script>
-	</body>
+    <script src="assets/javaScript/tB.js"></script>
+  </body>
 </html>
