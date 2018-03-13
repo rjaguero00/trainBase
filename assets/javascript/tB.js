@@ -18,7 +18,7 @@
   var name = $('#train-name-input').val().trim();
   console.log(name)
   var destination = $('#destination-input').val().trim();
-  var firstTTime = moment($('#first-train-input').val().trim(), "HH:mm").subtract(10, "years").format("X");
+  var firstTTime = moment($('#first-train-input').val().trim(), "HH:mm").subtract(1, "years").format("X");
   var frequency = $('#frequency-input').val().trim();
 
 
